@@ -12,9 +12,9 @@ router.get("/posts", async (req, res) => {
   const dbQuery = `
   SELECT posts.*, authors.name AS author_name FROM blog.posts 
   INNER JOIN blog.authors ON posts.author_id = authors.id
+  ORDER BY date DESC
   `;
   const [posts] = await db.query(dbQuery);
-
   res.render("posts-list", { posts: posts });
 });
 
