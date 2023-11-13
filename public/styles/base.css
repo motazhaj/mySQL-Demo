@@ -16,7 +16,7 @@ main {
 
 a {
   text-decoration: none;
-  color: rgb(77, 67, 96);
+  color: rgb(159, 49, 176);
 }
 
 a:hover,
@@ -45,7 +45,7 @@ ol {
 
 .btn:hover,
 .btn:active {
-  background-color: rgb(77, 67, 96);
+  background-color: rgb(164, 142, 203);
   border-color: rgb(77, 67, 96);
   color: white;
 }
@@ -53,7 +53,7 @@ ol {
 .btn.btn-alt {
   background-color: transparent;
   border-color: transparent;
-  color: rgb(77, 67, 96);
+  color: rgb(159, 49, 176);
 }
 
 .btn.btn-alt:hover,
