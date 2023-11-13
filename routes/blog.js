@@ -59,4 +59,19 @@ router.get("/posts/:id", async (req, res) => {
   res.render("post-detail", { post: postData });
 });
 
+router.get("/posts/:id/edit", async (req, res) => {
+  const dbQuery = `
+    SELECT posts.*, authors.name AS author_name, authors.email AS author_email FROM posts
+    INNER JOIN authors on posts.author_id = authors.id
+    WHERE posts.id = ?
+  `;
+  const [posts] = await db.query(dbQuery, [req.params.id]);
+
+  if (!posts || posts.length === 0) {
+    return res.status(404).render("404");
+  }
+ 
+  res.render("update-post", { post: posts[0] });
+});
+
 module.exports = router;
