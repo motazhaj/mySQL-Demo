@@ -15,7 +15,6 @@ router.get("/posts", async (req, res) => {
   `;
   const [posts] = await db.query(dbQuery);
 
-  console.log(posts);
   res.render("posts-list", { posts: posts });
 });
 
@@ -72,7 +71,6 @@ router.get("/posts/:id/edit", async (req, res) => {
   if (!posts || posts.length === 0) {
     return res.status(404).render("404");
   }
-  console.log(authors);
 
   res.render("update-post", { post: posts[0], authors: authors });
 });
