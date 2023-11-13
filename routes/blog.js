@@ -61,17 +61,36 @@ router.get("/posts/:id", async (req, res) => {
 
 router.get("/posts/:id/edit", async (req, res) => {
   const dbQuery = `
-    SELECT posts.*, authors.name AS author_name, authors.email AS author_email FROM posts
+    SELECT posts.*, authors.name AS author_name FROM posts
     INNER JOIN authors on posts.author_id = authors.id
     WHERE posts.id = ?
   `;
   const [posts] = await db.query(dbQuery, [req.params.id]);
 
+  const [authors] = await db.query("SELECT * FROM blog.authors");
+
   if (!posts || posts.length === 0) {
     return res.status(404).render("404");
   }
- 
-  res.render("update-post", { post: posts[0] });
+  console.log(authors);
+
+  res.render("update-post", { post: posts[0], authors: authors });
+});
+
+router.post("/posts/:id/edit", async (req, res) => {
+  const dbQuery = `
+    UPDATE posts SET title = ?, body = ?, author_id = ?
+    WHERE id = ?
+  `;
+  const postData = [
+    req.body.title,
+    req.body.content,
+    req.body.author,
+    req.params.id,
+  ];
+  await db.query(dbQuery, postData);
+
+  res.redirect("/posts/" + req.params.id);
 });
 
 module.exports = router;
